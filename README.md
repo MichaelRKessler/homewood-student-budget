@@ -2,13 +2,15 @@
 
 A Next.js guide to cheap eats, student discounts, and late-night spots near the Johns Hopkins **Homewood** campus — Charles Village, Remington, Waverly, and nearby Hampden. Not East Baltimore. No JHED login.
 
+**Live app:** [https://homewood-student-budget.vercel.app](https://homewood-student-budget.vercel.app)
+
 Browse without an account. Seeded neighborhood data renders on the home page out of the box.
 
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS
 - Optional [Supabase](https://supabase.com) for the spots table
-- Deployed on [Vercel](https://vercel.com)
+- Deployed on [Vercel](https://homewood-student-budget.vercel.app)
 
 ## Local setup
 
@@ -56,6 +58,8 @@ No service-role key belongs in this repo or in `NEXT_PUBLIC_*` variables.
 Hours are approximate. Confirm before you walk.
 
 ## Vercel auto-deploy from `main`
+
+Production: [https://homewood-student-budget.vercel.app](https://homewood-student-budget.vercel.app)
 
 Connect the GitHub repo to a Vercel project (Import Git Repository). `vercel.json` locks the framework to Next.js (`next build`) so Vercel does not treat the repo as a static `public/` site.
 
