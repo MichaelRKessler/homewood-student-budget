@@ -1,3 +1,11 @@
+import {
+  ALWAYS_OPEN,
+  EVERY_DAY,
+  MON_FRI,
+  SAT_SUN,
+  UNKNOWN_HOURS,
+  weekly,
+} from "@/lib/hours";
 import type { Spot } from "@/lib/types";
 
 export const spots: Spot[] = [
@@ -10,6 +18,7 @@ export const spots: Spot[] = [
     tip: "A burrito bowl with extra rice and beans is the classic Homewood stretch-a-dollar move.",
     walkingMinutes: 6,
     hoursNote: "Daily ~10:45am–10pm. Kitchen can slow down right at close — order ahead on the app.",
+    hours: weekly([{ days: EVERY_DAY, open: "10:45", close: "22:00" }]),
     address: "3201 Saint Paul St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -26,6 +35,7 @@ export const spots: Spot[] = [
     tip: "Build a smaller stir-fry and skip the honeybar if you want to stay closer to $.",
     walkingMinutes: 6,
     hoursNote: "Daily ~10:30am–10pm.",
+    hours: weekly([{ days: EVERY_DAY, open: "10:30", close: "22:00" }]),
     address: "3212 St Paul St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -42,6 +52,10 @@ export const spots: Spot[] = [
     tip: "Go before 9am on weekdays. The line after 10:30 is a Charles Village rite of passage.",
     walkingMinutes: 6,
     hoursNote: "Weekdays ~6am–3pm; weekends ~7am–3pm. Breakfast-and-lunch only.",
+    hours: weekly([
+      { days: MON_FRI, open: "06:00", close: "15:00" },
+      { days: SAT_SUN, open: "07:00", close: "15:00" },
+    ]),
     address: "3208 St Paul St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -58,6 +72,10 @@ export const spots: Spot[] = [
     tip: "Indian plates and diner classics live on the same menu. Vegetarian students eat well here.",
     walkingMinutes: 8,
     hoursNote: "Mon–Sat ~11am–10pm; Sun ~9am–10pm. Weekend brunch until mid-afternoon.",
+    hours: weekly([
+      { days: [1, 2, 3, 4, 5, 6], open: "11:00", close: "22:00" },
+      { days: [0], open: "09:00", close: "22:00" },
+    ]),
     address: "3327 St Paul St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -74,6 +92,11 @@ export const spots: Spot[] = [
     tip: "Vegetarian and vegan comfort food plus a full bar. Chili and the veggie plates are the student order.",
     walkingMinutes: 10,
     hoursNote: "Closed Mon–Tue. Wed–Fri ~10am–8pm; Sat ~9am–8pm; Sun ~9am–4pm. Confirm before you walk.",
+    hours: weekly([
+      { days: [3, 4, 5], open: "10:00", close: "20:00" },
+      { days: [6], open: "09:00", close: "20:00" },
+      { days: [0], open: "09:00", close: "16:00" },
+    ]),
     address: "100 W University Pkwy, Baltimore, MD 21210",
     neighborhood: "Charles Village",
     description:
@@ -90,27 +113,15 @@ export const spots: Spot[] = [
     tip: "Cafe plus bookstore. Best laptop table on the 33rd Street side of campus if you can claim one.",
     walkingMinutes: 6,
     hoursNote: "Sun–Tue ~8am–4pm; Wed–Sat ~8am–8pm. Evening hours can shift for events.",
+    hours: weekly([
+      { days: [0, 1, 2], open: "08:00", close: "16:00" },
+      { days: [3, 4, 5, 6], open: "08:00", close: "20:00" },
+    ]),
     address: "11 E 33rd St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
       "A collaboration between Artifact Coffee and The Ivy Bookshop, Bird in Hand is the Homewood study-cafe default: espresso, pastries, books, and enough outlets to start a rumor. Midday it fills with undergrads. Evenings (when open) are quieter.",
     website: "https://www.birdinhandcafe.com/",
-    studentDeal: null,
-  },
-  {
-    id: "niwana",
-    slug: "niwana",
-    name: "Niwana",
-    categories: ["cheap-eats"],
-    priceRange: "$$",
-    tip: "Sushi rolls and Korean plates. Dolsot bibimbap is the better value than a long sushi order.",
-    walkingMinutes: 6,
-    hoursNote: "Dinner-leaning hours; typically open into the evening. Call ahead for lunch.",
-    address: "3 E 33rd St, Baltimore, MD 21218",
-    neighborhood: "Charles Village",
-    description:
-      "Charles Village's long-standing sushi and Korean restaurant, right on 33rd Street by campus. Not the cheapest bite on the block, but it is a real sit-down option without leaving the neighborhood. Sake and a full bar if someone else is paying.",
-    website: null,
     studentDeal: null,
   },
   {
@@ -122,6 +133,11 @@ export const spots: Spot[] = [
     tip: "Hampden sushi on The Avenue — a walk, not a mythic St. Paul storefront. Worth it for rolls and ramen.",
     walkingMinutes: 22,
     hoursNote: "Typically Mon–Thu ~4–10pm; Fri–Sat ~noon–11pm; Sun ~noon–10pm.",
+    hours: weekly([
+      { days: [1, 2, 3, 4], open: "16:00", close: "22:00" },
+      { days: [5, 6], open: "12:00", close: "23:00" },
+      { days: [0], open: "12:00", close: "22:00" },
+    ]),
     address: "850 W 36th St, Baltimore, MD 21211",
     neighborhood: "Hampden",
     description:
@@ -138,6 +154,10 @@ export const spots: Spot[] = [
     tip: "The mannequin-and-toys diner everyone sends visiting friends to. It is no longer a late-night spot.",
     walkingMinutes: 16,
     hoursNote: "Closed Mon–Tue. Wed–Thu ~8am–4pm; Fri–Sun ~8am–6pm. Daytime only now.",
+    hours: weekly([
+      { days: [3, 4], open: "08:00", close: "16:00" },
+      { days: [5, 6, 0], open: "08:00", close: "18:00" },
+    ]),
     address: "227 W 29th St, Baltimore, MD 21211",
     neighborhood: "Remington",
     description:
@@ -154,6 +174,10 @@ export const spots: Spot[] = [
     tip: "Walk the whole food hall before you commit. Stalls vary from cheap-ish to date-night.",
     walkingMinutes: 16,
     hoursNote: "Mon–Thu ~11:30am–10pm; Fri–Sun ~11:30am–11pm. Individual stalls may close earlier.",
+    hours: weekly([
+      { days: [1, 2, 3, 4], open: "11:30", close: "22:00" },
+      { days: [5, 6, 0], open: "11:30", close: "23:00" },
+    ]),
     address: "301 W 29th St, Baltimore, MD 21211",
     neighborhood: "Remington",
     description:
@@ -169,7 +193,11 @@ export const spots: Spot[] = [
     priceRange: "$",
     tip: "Worker-owned bookstore cafe on Greenmount. Coffee, vegan-friendly plates, and actual tables.",
     walkingMinutes: 14,
-    hoursNote: "Cafe hours are typically daytime into early evening. Check before a late study session.",
+    hoursNote: "Tue–Sat ~9am–8pm; Sun ~10am–4pm. Closed Mon. Check before a late study session.",
+    hours: weekly([
+      { days: [2, 3, 4, 5, 6], open: "09:00", close: "20:00" },
+      { days: [0], open: "10:00", close: "16:00" },
+    ]),
     address: "3128 Greenmount Ave, Baltimore, MD 21218",
     neighborhood: "Waverly",
     description:
@@ -185,7 +213,11 @@ export const spots: Spot[] = [
     priceRange: "$",
     tip: "Cash-friendly Waverly breakfast diner. Go hungry. The scrapple debate is local sport.",
     walkingMinutes: 14,
-    hoursNote: "Breakfast and lunch. Typically opens early and closes mid-afternoon. Closed some evenings.",
+    hoursNote: "Tue–Sat ~7am–2pm; Sun ~8am–2pm. Closed Mon. Breakfast and lunch only.",
+    hours: weekly([
+      { days: [2, 3, 4, 5, 6], open: "07:00", close: "14:00" },
+      { days: [0], open: "08:00", close: "14:00" },
+    ]),
     address: "3130 Greenmount Ave, Baltimore, MD 21218",
     neighborhood: "Waverly",
     description:
@@ -201,7 +233,13 @@ export const spots: Spot[] = [
     priceRange: "$",
     tip: "Warm cookies until the small hours. Delivery is the move after 11pm.",
     walkingMinutes: 6,
-    hoursNote: "Often open into the early morning (commonly until ~2–3am). Confirm on the app.",
+    hoursNote: "Mon–Wed ~11am–1am; Thu–Fri ~11am–3am; Sat ~noon–3am; Sun ~noon–1am. Confirm on the app.",
+    hours: weekly([
+      { days: [1, 2, 3], open: "11:00", close: "01:00" },
+      { days: [4, 5], open: "11:00", close: "03:00" },
+      { days: [6], open: "12:00", close: "03:00" },
+      { days: [0], open: "12:00", close: "01:00" },
+    ]),
     address: "3301 N Charles St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -218,6 +256,7 @@ export const spots: Spot[] = [
     tip: "The 24-hour backup when everything else is closed. Slurpee and a hot dog is a valid meal.",
     walkingMinutes: 12,
     hoursNote: "Typically 24 hours. Some nights close briefly after midnight for cleaning.",
+    hours: ALWAYS_OPEN,
     address: "3003 N Charles St, Baltimore, MD 21218",
     neighborhood: "Charles Village",
     description:
@@ -234,6 +273,7 @@ export const spots: Spot[] = [
     tip: "The old 32nd Street shop moved on campus. Sandwiches and bakery cases, not a late-night kitchen.",
     walkingMinutes: 3,
     hoursNote: "Breakfast and lunch on campus hours. Typically done by mid-afternoon.",
+    hours: UNKNOWN_HOURS,
     address: "Steven Muller Building, Johns Hopkins Homewood Campus, Baltimore, MD 21218",
     neighborhood: "Homewood campus",
     description:
@@ -249,7 +289,11 @@ export const spots: Spot[] = [
     priceRange: "$$",
     tip: "Hampden sister to Bird in Hand. Better if you want a longer table and a change of scenery.",
     walkingMinutes: 25,
-    hoursNote: "Typically daytime into early evening. Not a late-night cafe.",
+    hoursNote: "Mon–Fri ~8am–3pm; Sat–Sun ~8am–4pm. Not a late-night cafe.",
+    hours: weekly([
+      { days: MON_FRI, open: "08:00", close: "15:00" },
+      { days: SAT_SUN, open: "08:00", close: "16:00" },
+    ]),
     address: "1500 Union Ave, Baltimore, MD 21211",
     neighborhood: "Hampden",
     description:
@@ -266,6 +310,7 @@ export const spots: Spot[] = [
     tip: "Hampden Tex-Mex. Combo plates and margaritas; tacos are the student-budget order.",
     walkingMinutes: 22,
     hoursNote: "Lunch and dinner on The Avenue. Typically open into the evening; confirm late-night.",
+    hours: UNKNOWN_HOURS,
     address: "908 W 36th St, Baltimore, MD 21211",
     neighborhood: "Hampden",
     description:
@@ -281,7 +326,11 @@ export const spots: Spot[] = [
     priceRange: "$",
     tip: "Baltimore ice cream on The Avenue. One scoop is a legitimate study break.",
     walkingMinutes: 22,
-    hoursNote: "Typically afternoon into evening. Seasonal hours — winter can close earlier.",
+    hoursNote: "Sun–Thu ~11am–11pm; Fri–Sat ~11am–12am. Seasonal — winter can close earlier.",
+    hours: weekly([
+      { days: [0, 1, 2, 3, 4], open: "11:00", close: "23:00" },
+      { days: [5, 6], open: "11:00", close: "00:00" },
+    ]),
     address: "801 W 36th St, Baltimore, MD 21211",
     neighborhood: "Hampden",
     description:

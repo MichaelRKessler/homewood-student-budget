@@ -1,3 +1,5 @@
+import type { HoursSpec } from "@/lib/hours";
+
 export const CATEGORY_IDS = [
   "cheap-eats",
   "student-discounts",
@@ -20,6 +22,7 @@ export type Spot = {
   tip: string;
   walkingMinutes: number;
   hoursNote: string;
+  hours: HoursSpec;
   address: string;
   neighborhood: string;
   description: string;

@@ -1,15 +1,25 @@
+import { getOpenStatus } from "@/lib/hours";
 import type { CategoryId, Spot } from "@/lib/types";
 
 export function filterSpots(
   all: Spot[],
-  options: { query?: string; category?: CategoryId | "all" },
+  options: {
+    query?: string;
+    category?: CategoryId | "all";
+    openNow?: boolean;
+    now?: Date;
+  },
 ): Spot[] {
   const query = options.query?.trim().toLowerCase() ?? "";
   const category = options.category ?? "all";
+  const now = options.now ?? new Date();
 
   return all.filter((spot) => {
     const matchesCategory = category === "all" || spot.categories.includes(category);
     if (!matchesCategory) {
+      return false;
+    }
+    if (options.openNow && getOpenStatus(spot.hours, now) !== "open") {
       return false;
     }
     if (!query) {

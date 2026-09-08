@@ -1,4 +1,5 @@
 import { spots as seedSpots } from "@/data/spots";
+import { parseHoursSpec } from "@/lib/hours";
 import {
   CATEGORY_IDS,
   PRICE_RANGES,
@@ -17,6 +18,7 @@ type SpotRow = {
   tip: string;
   walking_minutes: number;
   hours_note: string;
+  hours: unknown;
   address: string;
   neighborhood: string;
   description: string;
@@ -47,6 +49,7 @@ function mapRow(row: SpotRow): Spot | null {
     tip: row.tip,
     walkingMinutes: row.walking_minutes,
     hoursNote: row.hours_note,
+    hours: parseHoursSpec(row.hours),
     address: row.address,
     neighborhood: row.neighborhood,
     description: row.description,
@@ -71,7 +74,7 @@ export async function getSpots(): Promise<Spot[]> {
     const { data, error } = await supabase
       .from("spots")
       .select(
-        "id, slug, name, categories, price_range, tip, walking_minutes, hours_note, address, neighborhood, description, website, student_deal",
+        "id, slug, name, categories, price_range, tip, walking_minutes, hours_note, hours, address, neighborhood, description, website, student_deal",
       )
       .order("walking_minutes", { ascending: true });
 
