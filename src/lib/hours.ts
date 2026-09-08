@@ -8,7 +8,7 @@
  *   the window crosses midnight onto the next calendar day.
  * - `unknown` — no reliable weekly schedule. Open now never treats these as open.
  *
- * Seed spots that stay unknown: Niwana, Holy Frijoles, Carma's Cafe.
+ * Seed spots that stay unknown: Holy Frijoles, Carma's Cafe.
  */
 
 export const BALTIMORE_TIME_ZONE = "America/New_York";
@@ -171,7 +171,6 @@ export function parseHoursSpec(value: unknown): HoursSpec {
 }
 
 export const UNKNOWN_HOURS_SPOT_IDS = [
-  "niwana",
   "holy-frijoles",
   "carmas-cafe",
 ] as const;

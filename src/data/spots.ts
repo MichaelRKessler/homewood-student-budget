@@ -125,23 +125,6 @@ export const spots: Spot[] = [
     studentDeal: null,
   },
   {
-    id: "niwana",
-    slug: "niwana",
-    name: "Niwana",
-    categories: ["cheap-eats"],
-    priceRange: "$$",
-    tip: "Sushi rolls and Korean plates. Dolsot bibimbap is the better value than a long sushi order.",
-    walkingMinutes: 6,
-    hoursNote: "Dinner-leaning hours; typically open into the evening. Call ahead for lunch.",
-    hours: UNKNOWN_HOURS,
-    address: "3 E 33rd St, Baltimore, MD 21218",
-    neighborhood: "Charles Village",
-    description:
-      "Charles Village's long-standing sushi and Korean restaurant, right on 33rd Street by campus. Not the cheapest bite on the block, but it is a real sit-down option without leaving the neighborhood. Sake and a full bar if someone else is paying.",
-    website: null,
-    studentDeal: null,
-  },
-  {
     id: "nori-hampden",
     slug: "nori",
     name: "Nori",

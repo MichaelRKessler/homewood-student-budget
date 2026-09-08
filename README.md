@@ -50,9 +50,9 @@ No service-role key belongs in this repo or in `NEXT_PUBLIC_*` variables.
 
 - Home search + filters: Cheap Eats, Student Discounts, Late Night, Coffee / Study snacks, plus an **Open now** toggle (America/New_York). Tag filters AND with Open now.
 - Spot cards: tags, `$`–`$$$`, tip, walk time from Homewood, hours note, address / neighborhood
-- Hours are structured weekly windows when we have them. Niwana, Holy Frijoles, and Carma's Cafe stay **hours unknown** and appear in a separate list when Open now is on.
+- Hours are structured weekly windows when we have them. Holy Frijoles and Carma's Cafe stay **hours unknown** and appear in a separate list when Open now is on.
 - Detail pages with maps links and related spots
-- 18 real Homewood-area places (Chipotle, honeygrow, Tamber’s, One World Cafe, Bird in Hand, Nori in Hampden, R. House, and others)
+- 17 real Homewood-area places (Chipotle, honeygrow, Tamber’s, One World Cafe, Bird in Hand, Nori in Hampden, R. House, and others)
 
 Hours are approximate. Confirm before you walk. Open now never treats unknown-hour spots as open.
 

@@ -59,7 +59,7 @@ create policy "spots are publicly readable"
 
 -- Seed data (idempotent). Hours are approximate — always confirm before you go.
 -- `hours` is structured weekly JSON for Open now (America/New_York). kind=unknown
--- when a weekly schedule could not be determined (Niwana, Holy Frijoles, Carma's Cafe).
+-- when a weekly schedule could not be determined (Holy Frijoles, Carma's Cafe).
 insert into public.spots (
   id, slug, name, categories, price_range, tip, walking_minutes,
   hours_note, hours, address, neighborhood, description, website, student_deal
@@ -158,22 +158,6 @@ insert into public.spots (
     'Charles Village',
     'A collaboration between Artifact Coffee and The Ivy Bookshop, Bird in Hand is the Homewood study-cafe default: espresso, pastries, books, and enough outlets to start a rumor. Midday it fills with undergrads. Evenings (when open) are quieter.',
     'https://www.birdinhandcafe.com/',
-    null
-  ),
-  (
-    'niwana',
-    'niwana',
-    'Niwana',
-    array['cheap-eats']::public.spot_category[],
-    '$$',
-    'Sushi rolls and Korean plates. Dolsot bibimbap is the better value than a long sushi order.',
-    6,
-    'Dinner-leaning hours; typically open into the evening. Call ahead for lunch.',
-    '{"kind":"unknown"}'::jsonb,
-    '3 E 33rd St, Baltimore, MD 21218',
-    'Charles Village',
-    'Charles Village''s long-standing sushi and Korean restaurant, right on 33rd Street by campus. Not the cheapest bite on the block, but it is a real sit-down option without leaving the neighborhood. Sake and a full bar if someone else is paying.',
-    null,
     null
   ),
   (
@@ -366,3 +350,6 @@ on conflict (id) do update set
   description = excluded.description,
   website = excluded.website,
   student_deal = excluded.student_deal;
+
+-- Closed ~2019; drop leftover rows from earlier seed runs.
+delete from public.spots where id = 'niwana' or slug = 'niwana';
