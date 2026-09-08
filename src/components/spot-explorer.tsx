@@ -65,7 +65,7 @@ export function SpotExplorer({ spots }: { spots: Spot[] }) {
           />
         </label>
 
-        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <FilterChip
             active={category === "all"}
             onClick={() => setCategory("all")}
