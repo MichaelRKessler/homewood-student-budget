@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0e2340;
+  --navy-ink: #071525;
+  --gold: #c4a35a;
+  --gold-soft: #e6d3a3;
+  --cream: #f3ead8;
+  --paper: #fff8ee;
+  --ink: #1c1917;
+  --muted: #6b6258;
+  --terracotta: #c45d3a;
+  --sage: #3f6b52;
+  --line: #e4d8c4;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-ink: var(--navy-ink);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-terracotta: var(--terracotta);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+  --font-sans: "Source Sans 3", "Source Sans 3 Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Fraunces Fallback", ui-serif, Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-source-sans), "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), "Fraunces", ui-serif, Georgia, serif;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--navy-ink);
+}
