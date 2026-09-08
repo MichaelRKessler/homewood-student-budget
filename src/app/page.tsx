@@ -45,9 +45,9 @@ export default async function Home() {
               </a>
             </div>
           </div>
-          <aside className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-            <p className="font-display text-2xl text-gold-soft">No JHED required</p>
-            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-paper/75">
+          <aside className="rounded-3xl border border-gold/40 bg-paper px-6 py-6 text-navy shadow-[0_16px_40px_-28px_rgba(0,0,0,0.6)]">
+            <p className="font-display text-2xl text-navy">No JHED required</p>
+            <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-relaxed text-ink/80">
               <li>Browse without signing in. Optional accounts can wait.</li>
               <li>Walking times are from the Homewood quad, not from the hospital.</li>
               <li>Hours change. Treat them as a tip, then confirm.</li>

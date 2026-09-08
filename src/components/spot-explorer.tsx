@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { SpotCard } from "@/components/spot-card";
 import { CATEGORIES } from "@/lib/categories";
-import { filterSpots } from "@/lib/spots";
+import { filterSpots } from "@/lib/spot-filters";
 import type { CategoryId, Spot } from "@/lib/types";
 import { cn } from "@/lib/utils";
 

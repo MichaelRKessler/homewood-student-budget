@@ -5,7 +5,8 @@ import { ArrowLeft, Clock3, ExternalLink, Footprints, MapPin, Tag } from "lucide
 import { CategoryBadge } from "@/components/category-badge";
 import { SpotCard } from "@/components/spot-card";
 import { CATEGORY_BY_ID } from "@/lib/categories";
-import { getSpotBySlug, getSpots, relatedSpots } from "@/lib/spots";
+import { relatedSpots } from "@/lib/spot-filters";
+import { getSpotBySlug, getSpots } from "@/lib/spots";
 import { formatCategoryList, mapsUrl, walkingLabel } from "@/lib/utils";
 
 export async function generateStaticParams() {
