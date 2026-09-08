@@ -57,7 +57,7 @@ Hours are approximate. Confirm before you walk.
 
 ## Vercel auto-deploy from `main`
 
-Connect the GitHub repo to a Vercel project (Import Git Repository). Vercel detects Next.js.
+Connect the GitHub repo to a Vercel project (Import Git Repository). `vercel.json` locks the framework to Next.js (`next build`) so Vercel does not treat the repo as a static `public/` site.
 
 - Every push to `main` builds and deploys production
 - Pull requests get preview deployments
