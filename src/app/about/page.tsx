@@ -34,10 +34,12 @@ export default function AboutPage() {
         </p>
         <p>
           Hours and prices move. Treat every hours note as a tip, then check the
-          shop. Seeded spots are real neighborhood places students actually use —
-          including Chipotle, honeygrow, Tamber&apos;s, One World Cafe, Bird in
-          Hand, and Nori on The Avenue. Alem is not listed because it is not a
-          Baltimore restaurant.
+          shop. Open now uses structured weekly hours in America/New_York. Spots
+          we cannot schedule stay under Hours unknown instead of being silently
+          included or dropped. Seeded spots are real neighborhood places students
+          actually use — including Chipotle, honeygrow, Tamber&apos;s, One World
+          Cafe, Bird in Hand, and Nori on The Avenue. Alem is not listed because
+          it is not a Baltimore restaurant.
         </p>
       </div>
       <Link

@@ -60,8 +60,9 @@ export default async function Home() {
         <div className="mb-8 max-w-2xl">
           <h2 className="font-display text-3xl text-navy sm:text-4xl">What&apos;s close and cheap</h2>
           <p className="mt-3 text-muted">
-            Filter by Cheap Eats, Student Discounts, Late Night, or Coffee / Study
-            snacks. {spots.length} real neighborhood spots, seeded for a working demo.
+            Filter by Cheap Eats, Student Discounts, Late Night, Coffee / Study
+            snacks, or Open now (Baltimore time). {spots.length} real neighborhood
+            spots, seeded for a working demo.
           </p>
         </div>
         <SpotExplorer spots={spots} />

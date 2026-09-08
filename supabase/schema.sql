@@ -34,6 +34,7 @@ create table if not exists public.spots (
   tip text not null,
   walking_minutes integer not null check (walking_minutes > 0),
   hours_note text not null,
+  hours jsonb,
   address text not null,
   neighborhood text not null,
   description text not null,
@@ -41,6 +42,8 @@ create table if not exists public.spots (
   student_deal text,
   created_at timestamptz not null default now()
 );
+
+alter table public.spots add column if not exists hours jsonb;
 
 create index if not exists spots_neighborhood_idx on public.spots (neighborhood);
 create index if not exists spots_walking_minutes_idx on public.spots (walking_minutes);
@@ -55,9 +58,11 @@ create policy "spots are publicly readable"
   using (true);
 
 -- Seed data (idempotent). Hours are approximate — always confirm before you go.
+-- `hours` is structured weekly JSON for Open now (America/New_York). kind=unknown
+-- when a weekly schedule could not be determined (Niwana, Holy Frijoles, Carma's Cafe).
 insert into public.spots (
   id, slug, name, categories, price_range, tip, walking_minutes,
-  hours_note, address, neighborhood, description, website, student_deal
+  hours_note, hours, address, neighborhood, description, website, student_deal
 ) values
   (
     'chipotle-st-paul',
@@ -68,6 +73,7 @@ insert into public.spots (
     'A burrito bowl with extra rice and beans is the classic Homewood stretch-a-dollar move.',
     6,
     'Daily ~10:45am–10pm. Kitchen can slow down right at close — order ahead on the app.',
+    '{"kind":"weekly","windows":[{"days":[0,1,2,3,4,5,6],"open":"10:45","close":"22:00"}]}'::jsonb,
     '3201 Saint Paul St, Baltimore, MD 21218',
     'Charles Village',
     'The St. Paul Street Chipotle sits a block south of campus and is the default cheap dinner for half the dorms. Rewards points matter more here than any unofficial student discount. Bowls travel well back to the library.',
@@ -83,6 +89,7 @@ insert into public.spots (
     'Build a smaller stir-fry and skip the honeybar if you want to stay closer to $.',
     6,
     'Daily ~10:30am–10pm.',
+    '{"kind":"weekly","windows":[{"days":[0,1,2,3,4,5,6],"open":"10:30","close":"22:00"}]}'::jsonb,
     '3212 St Paul St, Baltimore, MD 21218',
     'Charles Village',
     'Cooked-to-order stir-fry, salads, and a dessert bar directly across from Chipotle. A step up from fast food, still fast enough between classes. Good vegetarian default when Tamber''s is packed.',
@@ -98,6 +105,7 @@ insert into public.spots (
     'Go before 9am on weekdays. The line after 10:30 is a Charles Village rite of passage.',
     6,
     'Weekdays ~6am–3pm; weekends ~7am–3pm. Breakfast-and-lunch only.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3,4,5],"open":"06:00","close":"15:00"},{"days":[0,6],"open":"07:00","close":"15:00"}]}'::jsonb,
     '3208 St Paul St, Baltimore, MD 21218',
     'Charles Village',
     'Towson Hot Bagels'' Charles Village shop is the neighborhood''s morning engine: egg sandwiches, everything bagels, and coffee that actually gets you to an 8:30. Not a laptop cafe — grab and go, or squeeze into a small table.',
@@ -113,6 +121,7 @@ insert into public.spots (
     'Indian plates and diner classics live on the same menu. Vegetarian students eat well here.',
     8,
     'Mon–Sat ~11am–10pm; Sun ~9am–10pm. Weekend brunch until mid-afternoon.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3,4,5,6],"open":"11:00","close":"22:00"},{"days":[0],"open":"09:00","close":"22:00"}]}'::jsonb,
     '3327 St Paul St, Baltimore, MD 21218',
     'Charles Village',
     'A Charles Village fixture since the 1990s: chicken tikka, biryani, and American diner plates under one roof. It looks like a corner diner because it is one. Portions are the point. Open later than most sit-down spots on St. Paul.',
@@ -128,6 +137,7 @@ insert into public.spots (
     'Vegetarian and vegan comfort food plus a full bar. Chili and the veggie plates are the student order.',
     10,
     'Closed Mon–Tue. Wed–Fri ~10am–8pm; Sat ~9am–8pm; Sun ~9am–4pm. Confirm before you walk.',
+    '{"kind":"weekly","windows":[{"days":[3,4,5],"open":"10:00","close":"20:00"},{"days":[6],"open":"09:00","close":"20:00"},{"days":[0],"open":"09:00","close":"16:00"}]}'::jsonb,
     '100 W University Pkwy, Baltimore, MD 21210',
     'Charles Village',
     'A long-running vegetarian cafe on University Parkway, just north of Homewood. More restaurant than coffee counter, with a patio that fills on warm weekends. A reliable break from the St. Paul Street chains.',
@@ -143,6 +153,7 @@ insert into public.spots (
     'Cafe plus bookstore. Best laptop table on the 33rd Street side of campus if you can claim one.',
     6,
     'Sun–Tue ~8am–4pm; Wed–Sat ~8am–8pm. Evening hours can shift for events.',
+    '{"kind":"weekly","windows":[{"days":[0,1,2],"open":"08:00","close":"16:00"},{"days":[3,4,5,6],"open":"08:00","close":"20:00"}]}'::jsonb,
     '11 E 33rd St, Baltimore, MD 21218',
     'Charles Village',
     'A collaboration between Artifact Coffee and The Ivy Bookshop, Bird in Hand is the Homewood study-cafe default: espresso, pastries, books, and enough outlets to start a rumor. Midday it fills with undergrads. Evenings (when open) are quieter.',
@@ -158,6 +169,7 @@ insert into public.spots (
     'Sushi rolls and Korean plates. Dolsot bibimbap is the better value than a long sushi order.',
     6,
     'Dinner-leaning hours; typically open into the evening. Call ahead for lunch.',
+    '{"kind":"unknown"}'::jsonb,
     '3 E 33rd St, Baltimore, MD 21218',
     'Charles Village',
     'Charles Village''s long-standing sushi and Korean restaurant, right on 33rd Street by campus. Not the cheapest bite on the block, but it is a real sit-down option without leaving the neighborhood. Sake and a full bar if someone else is paying.',
@@ -173,6 +185,7 @@ insert into public.spots (
     'Hampden sushi on The Avenue — a walk, not a mythic St. Paul storefront. Worth it for rolls and ramen.',
     22,
     'Typically Mon–Thu ~4–10pm; Fri–Sat ~noon–11pm; Sun ~noon–10pm.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3,4],"open":"16:00","close":"22:00"},{"days":[5,6],"open":"12:00","close":"23:00"},{"days":[0],"open":"12:00","close":"22:00"}]}'::jsonb,
     '850 W 36th St, Baltimore, MD 21211',
     'Hampden',
     'Nori is a sushi and Korean spot on Hampden''s 36th Street — nearby, not on campus. Students often lump it in with Homewood dinner plans because The Avenue is a pleasant 20-minute walk or a short Circulator/bus hop. Stay for a roll and ramen, skip if you only have 30 minutes between sections.',
@@ -188,6 +201,7 @@ insert into public.spots (
     'The mannequin-and-toys diner everyone sends visiting friends to. It is no longer a late-night spot.',
     16,
     'Closed Mon–Tue. Wed–Thu ~8am–4pm; Fri–Sun ~8am–6pm. Daytime only now.',
+    '{"kind":"weekly","windows":[{"days":[3,4],"open":"08:00","close":"16:00"},{"days":[5,6,0],"open":"08:00","close":"18:00"}]}'::jsonb,
     '227 W 29th St, Baltimore, MD 21211',
     'Remington',
     'Baltimore''s most photographed diner sits in Remington, a straight shot down from campus. The menu is comfort food with a vegetarian streak. Hours shrank — do not count on it after a Thursday night in the library. Go for brunch or an afternoon plate.',
@@ -203,6 +217,7 @@ insert into public.spots (
     'Walk the whole food hall before you commit. Stalls vary from cheap-ish to date-night.',
     16,
     'Mon–Thu ~11:30am–10pm; Fri–Sun ~11:30am–11pm. Individual stalls may close earlier.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3,4],"open":"11:30","close":"22:00"},{"days":[5,6,0],"open":"11:30","close":"23:00"}]}'::jsonb,
     '301 W 29th St, Baltimore, MD 21211',
     'Remington',
     'A converted auto-body shop turned food hall, less than a mile from Homewood. Shawarma, fried chicken, poke, and rotating chef stalls under one roof. The closest thing Homewood has to a cheap-dinner food court that is not on campus. Ask stalls about student specials — some run them, some do not.',
@@ -217,7 +232,8 @@ insert into public.spots (
     '$',
     'Worker-owned bookstore cafe on Greenmount. Coffee, vegan-friendly plates, and actual tables.',
     14,
-    'Cafe hours are typically daytime into early evening. Check before a late study session.',
+    'Tue–Sat ~9am–8pm; Sun ~10am–4pm. Closed Mon. Check before a late study session.',
+    '{"kind":"weekly","windows":[{"days":[2,3,4,5,6],"open":"09:00","close":"20:00"},{"days":[0],"open":"10:00","close":"16:00"}]}'::jsonb,
     '3128 Greenmount Ave, Baltimore, MD 21218',
     'Waverly',
     'Red Emma''s is a radical bookstore and cafe on Greenmount, an easy walk east of campus through Waverly. Prices are set for the neighborhood, not for Charles Street. Good for laptops, soup, and not spending $16 on a salad.',
@@ -232,7 +248,8 @@ insert into public.spots (
     '$',
     'Cash-friendly Waverly breakfast diner. Go hungry. The scrapple debate is local sport.',
     14,
-    'Breakfast and lunch. Typically opens early and closes mid-afternoon. Closed some evenings.',
+    'Tue–Sat ~7am–2pm; Sun ~8am–2pm. Closed Mon. Breakfast and lunch only.',
+    '{"kind":"weekly","windows":[{"days":[2,3,4,5,6],"open":"07:00","close":"14:00"},{"days":[0],"open":"08:00","close":"14:00"}]}'::jsonb,
     '3130 Greenmount Ave, Baltimore, MD 21218',
     'Waverly',
     'A no-nonsense diner next to Red Emma''s. Huge breakfast plates, short-order lunch, and a line of regulars who have been coming since before you picked a major. One of the last truly cheap sit-down meals in walking distance.',
@@ -247,7 +264,8 @@ insert into public.spots (
     '$',
     'Warm cookies until the small hours. Delivery is the move after 11pm.',
     6,
-    'Often open into the early morning (commonly until ~2–3am). Confirm on the app.',
+    'Mon–Wed ~11am–1am; Thu–Fri ~11am–3am; Sat ~noon–3am; Sun ~noon–1am. Confirm on the app.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3],"open":"11:00","close":"01:00"},{"days":[4,5],"open":"11:00","close":"03:00"},{"days":[6],"open":"12:00","close":"03:00"},{"days":[0],"open":"12:00","close":"01:00"}]}'::jsonb,
     '3301 N Charles St, Baltimore, MD 21218',
     'Charles Village',
     'The campus cookie shop. Not dinner. Entirely dinner if it is 1am and you are done pretending otherwise. Pickup at Charles Commons / N. Charles, plus delivery across the Homewood zip codes.',
@@ -263,6 +281,7 @@ insert into public.spots (
     'The 24-hour backup when everything else is closed. Slurpee and a hot dog is a valid meal.',
     12,
     'Typically 24 hours. Some nights close briefly after midnight for cleaning.',
+    '{"kind":"always_open"}'::jsonb,
     '3003 N Charles St, Baltimore, MD 21218',
     'Charles Village',
     'Under the Homewood Apartments at Hopkins Square, this 7-Eleven is the last light on for a lot of students. It is not a restaurant. It is the reason you do not have to leave the neighborhood at 2am. Pair with the Charles Street late-night walk, not a date.',
@@ -278,6 +297,7 @@ insert into public.spots (
     'The old 32nd Street shop moved on campus. Sandwiches and bakery cases, not a late-night kitchen.',
     3,
     'Breakfast and lunch on campus hours. Typically done by mid-afternoon.',
+    '{"kind":"unknown"}'::jsonb,
     'Steven Muller Building, Johns Hopkins Homewood Campus, Baltimore, MD 21218',
     'Homewood campus',
     'Carma''s left its longtime St. Paul storefront and now operates from the Steven Muller Building on campus. Same idea: sandwiches, coffee, and bakery items that have fueled Homewood mornings for years. Blueprint Cafe later took the old 32nd Street room.',
@@ -292,7 +312,8 @@ insert into public.spots (
     '$$',
     'Hampden sister to Bird in Hand. Better if you want a longer table and a change of scenery.',
     25,
-    'Typically daytime into early evening. Not a late-night cafe.',
+    'Mon–Fri ~8am–3pm; Sat–Sun ~8am–4pm. Not a late-night cafe.',
+    '{"kind":"weekly","windows":[{"days":[1,2,3,4,5],"open":"08:00","close":"15:00"},{"days":[0,6],"open":"08:00","close":"16:00"}]}'::jsonb,
     '1500 Union Ave, Baltimore, MD 21211',
     'Hampden',
     'Woodberry Kitchen''s coffee shop in a former mill building on Union Avenue. A little farther than The Avenue, but a favorite when you need to get off campus and still work. Espresso, light food, and a room that does not feel like a dining hall.',
@@ -308,6 +329,7 @@ insert into public.spots (
     'Hampden Tex-Mex. Combo plates and margaritas; tacos are the student-budget order.',
     22,
     'Lunch and dinner on The Avenue. Typically open into the evening; confirm late-night.',
+    '{"kind":"unknown"}'::jsonb,
     '908 W 36th St, Baltimore, MD 21211',
     'Hampden',
     'A 36th Street institution: casual Tex-Mex, a loud dining room, and prices that still make sense after a Circulator ride. Pair with The Charmery if you are already in Hampden. Not East Baltimore, not a chain.',
@@ -322,7 +344,8 @@ insert into public.spots (
     '$',
     'Baltimore ice cream on The Avenue. One scoop is a legitimate study break.',
     22,
-    'Typically afternoon into evening. Seasonal hours — winter can close earlier.',
+    'Sun–Thu ~11am–11pm; Fri–Sat ~11am–12am. Seasonal — winter can close earlier.',
+    '{"kind":"weekly","windows":[{"days":[0,1,2,3,4],"open":"11:00","close":"23:00"},{"days":[5,6],"open":"11:00","close":"00:00"}]}'::jsonb,
     '801 W 36th St, Baltimore, MD 21211',
     'Hampden',
     'Local ice cream shop on Hampden''s Avenue. Scoops, shakes, and flavors that show up in every ''things to do near Homewood'' list for a reason. Cheap if you do not turn it into a four-topping production.',
@@ -337,6 +360,7 @@ on conflict (id) do update set
   tip = excluded.tip,
   walking_minutes = excluded.walking_minutes,
   hours_note = excluded.hours_note,
+  hours = excluded.hours,
   address = excluded.address,
   neighborhood = excluded.neighborhood,
   description = excluded.description,

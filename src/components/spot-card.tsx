@@ -1,10 +1,23 @@
 import Link from "next/link";
 import { Clock3, Footprints, MapPin } from "lucide-react";
 import { CategoryBadge } from "@/components/category-badge";
+import type { OpenStatus } from "@/lib/hours";
 import type { Spot } from "@/lib/types";
-import { walkingLabel } from "@/lib/utils";
+import { cn, walkingLabel } from "@/lib/utils";
 
-export function SpotCard({ spot }: { spot: Spot }) {
+const OPEN_STATUS_LABEL: Record<OpenStatus, string> = {
+  open: "Open now",
+  closed: "Closed now",
+  unknown: "Hours unknown",
+};
+
+export function SpotCard({
+  spot,
+  openStatus,
+}: {
+  spot: Spot;
+  openStatus?: OpenStatus;
+}) {
   return (
     <article className="group flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-[0_10px_30px_-24px_rgba(14,35,64,0.45)] transition hover:-translate-y-0.5 hover:border-gold/60 hover:shadow-[0_18px_40px_-24px_rgba(14,35,64,0.55)]">
       <div className="flex items-start justify-between gap-3">
@@ -27,6 +40,18 @@ export function SpotCard({ spot }: { spot: Spot }) {
         {spot.categories.map((category) => (
           <CategoryBadge key={category} category={category} compact />
         ))}
+        {openStatus ? (
+          <span
+            className={cn(
+              "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold tracking-wide ring-1",
+              openStatus === "open" && "bg-sage/10 text-sage ring-sage/20",
+              openStatus === "closed" && "bg-navy/5 text-muted ring-navy/10",
+              openStatus === "unknown" && "bg-gold/20 text-navy ring-gold/40",
+            )}
+          >
+            {OPEN_STATUS_LABEL[openStatus]}
+          </span>
+        ) : null}
       </div>
 
       <p className="mt-4 flex-1 text-[15px] leading-relaxed text-ink/85">{spot.tip}</p>
