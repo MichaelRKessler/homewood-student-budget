@@ -8,7 +8,7 @@ import {
   getOpenStatusAt,
   parseHoursSpec,
   weekly,
-} from "./hours.ts";
+} from "./hours";
 
 describe("getOpenStatusAt", () => {
   const daily = weekly([{ days: [0, 1, 2, 3, 4, 5, 6], open: "10:45", close: "22:00" }]);
